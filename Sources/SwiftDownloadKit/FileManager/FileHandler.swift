@@ -7,11 +7,11 @@
 
 import Foundation
 
-public class FileManager{
+public class FileHandler{
     
     public init(){}
     
-    public func fileManagerTest(){
+    public func fileHandlerTest(){
         print("File manager checking in !!")
     }
 }
