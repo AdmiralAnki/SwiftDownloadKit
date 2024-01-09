@@ -13,13 +13,14 @@ public class NetworkManager{
     public static let shared = NetworkManager()
     
     
-    public func performNetworkCall(endpoint:API){
-        guard let urlRequest = configureRequest(endpoint: endpoint) else {return}
-        
-        let session = URLSession(configuration: .default)
-        
-        Task{
+    public func performNetworkCall(endpoint:API,session:URLSession) async -> Result<(URL,URLResponse),Error> {
+        do{
+            guard let urlRequest = configureRequest(endpoint: endpoint) else {return .failure(NetworkError.requestCreationFailed) }
+            
             let result = try await session.download(for: urlRequest)
+            return .success(result)
+        }catch{
+            return .failure(error as! NetworkError)
         }
     }
     

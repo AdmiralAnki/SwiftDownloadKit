@@ -74,5 +74,19 @@ final class SwiftDownloadKitTests: XCTestCase {
             XCTAssertEqual(actualValue, expectedQueryParam.value, "Value for query parameter '\(expectedQueryParam.name)' is incorrect")
         }
     }
+    
+    
+    func testMockByteRequest() throws{
+        let request = NetworkManager.shared.configureRequest(endpoint: MockAPIEndpoints.mockBytedownloader(500))
+        
+        XCTAssertNotNil(request)
+    }
+    
+    func testMockByteRequestMethod() throws{
+        let request = NetworkManager.shared.configureRequest(endpoint: MockAPIEndpoints.mockBytedownloader(500))
+        
+        XCTAssertTrue(request?.httpMethod == "GET")
+    }    
+    
 }
 
