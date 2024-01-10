@@ -17,10 +17,6 @@ enum MockAPIEndpoints:API{
     
     case mockBytedownloader(Int)
     
-    /*
-     curl -X GET "https://httpbin.org/range/500" -H "accept: application/octet-stream"
-     */
-    
     var httpMethod: SwiftDownloadKit.HTTPMethod{
         switch self{
         case .mockInvalidAPIEndpoint,.mockValidAPIEndpoint,.mockBytedownloader:

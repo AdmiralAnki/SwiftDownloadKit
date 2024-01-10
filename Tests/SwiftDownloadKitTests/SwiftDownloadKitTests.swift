@@ -13,7 +13,6 @@ final class SwiftDownloadKitTests: XCTestCase {
     }
     
     func testConfigureRequestURLComposition() {
-//      typealias validEP = MockAPIEndpoints.mockValidAPIEndpoint
         
         let request = NetworkManager.shared.configureRequest(endpoint: MockAPIEndpoints.mockValidAPIEndpoint)
         
