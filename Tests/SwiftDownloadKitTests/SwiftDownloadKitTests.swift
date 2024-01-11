@@ -85,7 +85,58 @@ final class SwiftDownloadKitTests: XCTestCase {
         let request = NetworkManager.shared.configureRequest(endpoint: MockAPIEndpoints.mockBytedownloader(500))
         
         XCTAssertTrue(request?.httpMethod == "GET")
-    }    
+    }   
     
+    func testRangeFetcher(){
+        let (_,_,range) = NetworkManager.shared.fetchNextRange( size:3333,downloaded:124,chunkSize:600)
+        
+        XCTAssert((!range.isEmpty))
+    }
+    
+    func testRangeFetcherStartAtZero(){
+        let (start,end,range) = NetworkManager.shared.fetchNextRange( size:85088,downloaded:0,chunkSize:6400)
+        
+        XCTAssertEqual(start, 0)
+        XCTAssertEqual(end, 6400)
+        XCTAssertEqual(range, "0-6400")
+    }
+    
+    func testRangeFetcherStartAtRandom(){
+        
+        let (start,end,range) = NetworkManager.shared.fetchNextRange( size:85088,downloaded:6400,chunkSize:6400)
+        
+        XCTAssertEqual(start, 6401)
+        XCTAssertEqual(end, 12801)
+        XCTAssert(range == "6401-12801")
+    }
+    
+    func testRangeFetcherLargeChunk(){
+        
+        let (start,end,range) = NetworkManager.shared.fetchNextRange( size:1000,downloaded:0,chunkSize:5000)
+        
+        XCTAssertEqual(start, 0)
+        XCTAssertEqual(end, 1000)
+        XCTAssert(range == "0-1000")
+    }
+    
+    
+    func testRangeListFetcher(){
+        
+        let rangeTwo = NetworkManager.shared.fetchRangeList( size:6000,downloaded:0,chunkSize:1000)
+        
+        XCTAssert(!rangeTwo.isEmpty)
+    }
+    
+    func testRangeDownloaded(){
+        let rangeTwo = NetworkManager.shared.fetchRangeList( size:1000,downloaded:1000,chunkSize:6400)
+        
+        XCTAssert(rangeTwo.isEmpty)
+    }
+    
+    func testAlmostComplete(){
+        let rangeTwo = NetworkManager.shared.fetchRangeList( size:5000,downloaded:4500,chunkSize:1000)
+        XCTAssertEqual(rangeTwo.last, "4501-5000")
+    }
+       
 }
 

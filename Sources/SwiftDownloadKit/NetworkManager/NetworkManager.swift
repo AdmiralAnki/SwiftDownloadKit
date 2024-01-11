@@ -48,7 +48,26 @@ public class NetworkManager{
         return urlRequest
     }
     
-    public func networkManagerTest(){
-        print("Network manager checking in!")
+    public func fetchRangeList(size:Int,downloaded:Int,chunkSize:Int)->[String]{
+        
+        guard downloaded < size else {return []}
+        
+        var rangeList = [String]()
+        var (start, end, range) = fetchNextRange(size: size, downloaded: downloaded, chunkSize: chunkSize)
+        rangeList.append(range)
+        
+        while(end != size){
+            (start,end,range) = fetchNextRange(size: size, downloaded: end, chunkSize: chunkSize)
+            rangeList.append(range)
+        }
+        
+        return rangeList
+    }
+    
+    public func fetchNextRange(size:Int,downloaded:Int,chunkSize:Int)->(Int,Int,String){
+        let start = (downloaded == 0 ? downloaded : downloaded+1)
+        let end = (start+chunkSize > size ? size : start+chunkSize)
+        
+        return (start:start,end:end,range:"\(start)-\(end)")
     }
 }
