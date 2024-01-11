@@ -20,7 +20,7 @@ public class NetworkManager{
             let result = try await session.data(for: urlRequest)
             return .success(result)
         }catch{
-            return .failure(error as! NetworkError)
+            return .failure(error as? NetworkError ?? .connectionError )
         }
     }
     
