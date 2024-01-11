@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  NetworkError.swift
 //  
 //
 //  Created by Ankith K on 09/01/24.

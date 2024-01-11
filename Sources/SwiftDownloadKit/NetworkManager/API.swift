@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  API.swift
+//
 //
 //  Created by Ankith K on 06/01/24.
 //
@@ -18,9 +18,11 @@ public protocol API{
 }
 
 public enum HTTPMethod:String{
-    case get = "GET"
-    case put = "PUT"
-    case post = "POST"
+    case get     =  "GET"
+    case put     =  "PUT"
+    case post    =  "POST"
+    case head    =  "HEAD"
+    case delete  =  "DELETE"
 }
 
 public enum HTTPScheme:String{
