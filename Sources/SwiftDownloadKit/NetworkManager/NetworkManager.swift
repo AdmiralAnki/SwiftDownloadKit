@@ -66,7 +66,7 @@ public class NetworkManager{
     
     public func fetchNextRange(size:Int,downloaded:Int,chunkSize:Int)->(Int,Int,String){
         let start = (downloaded == 0 ? downloaded : downloaded+1)
-        let end = (start+chunkSize > size ? size-1 : start+chunkSize)
+        let end = (start+chunkSize > size ? size : start+chunkSize)
         
         return (start:start,end:end,range:"\(start)-\(end)")
     }
