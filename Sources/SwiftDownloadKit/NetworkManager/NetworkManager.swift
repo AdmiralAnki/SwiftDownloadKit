@@ -12,7 +12,7 @@ public class NetworkManager{
     
     public static let shared = NetworkManager()
     
-    public func performNetworkCall(endpoint:API,session:URLSession,urlRequest:URLRequest) async -> Result<(Data,URLResponse),Error> {
+    public func performNetworkCall(session:URLSession,urlRequest:URLRequest) async -> Result<(Data,URLResponse),Error> {
         do{
             let result = try await session.data(for: urlRequest)
             return .success(result)
