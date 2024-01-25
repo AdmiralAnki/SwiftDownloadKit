@@ -22,6 +22,23 @@ public class FileHandler{
         try data.write(to: fileURL, options: .atomic)
     }
     
+    public func appendData(_ data: Data, toFileName fileName: String) throws {
+           let fileURL = directory.appendingPathComponent(fileName)
+           if !fileManager.fileExists(atPath: fileURL.path) {
+               try data.write(to: fileURL, options: .atomic)
+               return
+           }
+
+           if let fileHandle = FileHandle(forWritingAtPath: fileURL.path) {
+               defer {
+                   fileHandle.closeFile()
+               }
+               fileHandle.seekToEndOfFile()
+               fileHandle.write(data)
+           } else {
+               throw FileError.fileHandlerFailed
+           }
+       }
     public func readData(fromFileName fileName: String) throws -> Data {
         let fileURL = directory.appendingPathComponent(fileName)
         return try Data(contentsOf: fileURL)
