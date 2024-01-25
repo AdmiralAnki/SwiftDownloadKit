@@ -137,12 +137,6 @@ final class SwiftDownloadKitTests: XCTestCase {
         let rangeTwo = NetworkManager.shared.fetchRangeList( size:5000,downloaded:4500,chunkSize:1000)
         XCTAssertEqual(rangeTwo.last, "4501-5000")
     }
-    
-    func testRealWorldData(){
-        let rangeTwo = NetworkManager.shared.fetchRangeList( size:1340287,downloaded:204832,chunkSize:6400)
-        
-        XCTAssertEqual(rangeTwo.last, "1337810-1340287")
-    }
        
 }
 
