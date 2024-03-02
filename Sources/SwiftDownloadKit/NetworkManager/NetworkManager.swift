@@ -29,6 +29,7 @@ public class NetworkManager{
         urlComp.scheme = endpoint.httpScheme.rawValue
         urlComp.host = endpoint.host
         urlComp.path = endpoint.path
+        urlComp.port = endpoint.port
         urlComp.queryItems = endpoint.queryParams
         
         guard let url = urlComp.url else {
