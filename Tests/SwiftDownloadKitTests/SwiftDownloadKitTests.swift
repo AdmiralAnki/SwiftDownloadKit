@@ -47,7 +47,11 @@ final class SwiftDownloadKitTests: XCTestCase {
     func testConfigureRequestNilQueryParam() throws{
         let request = NetworkManager.shared.configureRequest(endpoint: MockAPIEndpoints.mockInvalidAPIEndpoint)
         
-        XCTAssertNil(request?.url?.query())
+        if #available(iOS 16.0, *) {
+            XCTAssertNil(request?.url?.query())
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     func testConfigureRequestQueryParam() throws{

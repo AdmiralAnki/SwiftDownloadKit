@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Networking
+
 public class NetworkManager{
     
     private init(){}

@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "networking",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/AdmiralAnki/Networking.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "dc09762928e572658669edba62f2fd4b147b7084"
+      }
+    }
+  ],
+  "version" : 2
+}

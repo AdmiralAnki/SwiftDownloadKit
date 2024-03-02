@@ -6,9 +6,13 @@
 //
 
 import Foundation
+import Networking
+
 @testable import SwiftDownloadKit
 
 enum MockAPIEndpoints:API{
+   
+    
     
     
     case mockValidAPIEndpoint
@@ -17,14 +21,14 @@ enum MockAPIEndpoints:API{
     
     case mockBytedownloader(Int)
     
-    var httpMethod: SwiftDownloadKit.HTTPMethod{
+    var httpMethod: HTTPMethod{
         switch self{
         case .mockInvalidAPIEndpoint,.mockValidAPIEndpoint,.mockBytedownloader:
             return .get
         }
     }
     
-    var httpScheme: SwiftDownloadKit.HTTPScheme{
+    var httpScheme: HTTPScheme{
         switch self{
         case .mockInvalidAPIEndpoint,.mockValidAPIEndpoint,.mockBytedownloader:
             return .https
@@ -50,6 +54,13 @@ enum MockAPIEndpoints:API{
             return "jsonplaceholder.typicode.com"
         case .mockBytedownloader:
             return "httpbin.org"
+        }
+    }
+    
+    var port: Int?{
+        switch self{
+        case .mockBytedownloader,.mockInvalidAPIEndpoint,.mockValidAPIEndpoint:
+            return nil
         }
     }
     

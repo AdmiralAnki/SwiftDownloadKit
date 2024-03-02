@@ -9,16 +9,15 @@ let package = Package(
         .macOS(.v12), .iOS(.v13)
     ],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "SwiftDownloadKit",
             targets: ["SwiftDownloadKit"]),
     ],
+    dependencies: [.package(url: "https://github.com/AdmiralAnki/Networking.git", branch: "main"),],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "SwiftDownloadKit",
+            dependencies: ["Networking"],
             path: "Sources"),
         .testTarget(
             name: "SwiftDownloadKitTests",
