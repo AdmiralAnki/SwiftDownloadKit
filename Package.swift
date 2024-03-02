@@ -21,6 +21,6 @@ let package = Package(
             path: "Sources"),
         .testTarget(
             name: "SwiftDownloadKitTests",
-            dependencies: ["SwiftDownloadKit"]),
+            dependencies: ["SwiftDownloadKit","Networking"]),
     ]
 )

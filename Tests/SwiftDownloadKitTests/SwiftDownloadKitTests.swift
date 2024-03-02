@@ -1,51 +1,52 @@
 import XCTest
+import Networking
 @testable import SwiftDownloadKit
 
 final class SwiftDownloadKitTests: XCTestCase {
     
     
     func testConfigureRequestToNil() throws{
-        XCTAssertNil(NetworkManager.shared.configureRequest(endpoint: MockAPIEndpoints.mockInvalidAPIEndpoint),"Request should be nil for an invalid endpoint")
+        XCTAssertNil(NetHelper.configureRequest(endpoint: MockAPIEndpoints.mockInvalidAPIEndpoint),"Request should be nil for an invalid endpoint")
     }
     
     func testConfigureRequestNonNil() throws{
-        XCTAssertNotNil(NetworkManager.shared.configureRequest(endpoint: MockAPIEndpoints.mockValidAPIEndpoint),"Request should not be nil for a valid endpoint")
+        XCTAssertNotNil(NetHelper.configureRequest(endpoint: MockAPIEndpoints.mockValidAPIEndpoint),"Request should not be nil for a valid endpoint")
     }
     
     func testConfigureRequestURLComposition() {
         
-        let request = NetworkManager.shared.configureRequest(endpoint: MockAPIEndpoints.mockValidAPIEndpoint)
+        let request = NetHelper.configureRequest(endpoint: MockAPIEndpoints.mockValidAPIEndpoint)
         
         XCTAssertEqual(request?.url?.host, MockAPIEndpoints.mockValidAPIEndpoint.host, "Host in the request should match the endpoint")
         XCTAssertEqual(request?.url?.path, MockAPIEndpoints.mockValidAPIEndpoint.path, "Path in the request should match the endpoint")
     }
     
     func testConfigureRequestWithHTTPSScheme() throws {
-        let request = NetworkManager.shared.configureRequest(endpoint: MockAPIEndpoints.mockValidAPIEndpoint)
+        let request = NetHelper.configureRequest(endpoint: MockAPIEndpoints.mockValidAPIEndpoint)
         
         XCTAssertTrue( request?.url?.scheme == "https")
     }
     
     func testConfigureRequestWithGetMethod() throws{
-        let request = NetworkManager.shared.configureRequest(endpoint: MockAPIEndpoints.mockValidAPIEndpoint)
+        let request = NetHelper.configureRequest(endpoint: MockAPIEndpoints.mockValidAPIEndpoint)
         
         XCTAssertTrue(request?.httpMethod == "GET")
     }
     
     func testConfigureRequestNilHeaderParam() throws{
-        let request = NetworkManager.shared.configureRequest(endpoint: MockAPIEndpoints.mockInvalidAPIEndpoint)
+        let request = NetHelper.configureRequest(endpoint: MockAPIEndpoints.mockInvalidAPIEndpoint)
         
         XCTAssertNil(request?.allHTTPHeaderFields)
     }
     
     func testConfigureRequestHeaderParam() throws{
-        let request = NetworkManager.shared.configureRequest(endpoint: MockAPIEndpoints.mockValidAPIEndpoint)
+        let request = NetHelper.configureRequest(endpoint: MockAPIEndpoints.mockValidAPIEndpoint)
         
         XCTAssert(request?.allHTTPHeaderFields == MockAPIEndpoints.mockValidAPIEndpoint.headerParam)
     }
     
     func testConfigureRequestNilQueryParam() throws{
-        let request = NetworkManager.shared.configureRequest(endpoint: MockAPIEndpoints.mockInvalidAPIEndpoint)
+        let request = NetHelper.configureRequest(endpoint: MockAPIEndpoints.mockInvalidAPIEndpoint)
         
         if #available(iOS 16.0, *) {
             XCTAssertNil(request?.url?.query())
@@ -55,7 +56,7 @@ final class SwiftDownloadKitTests: XCTestCase {
     }
     
     func testConfigureRequestQueryParam() throws{
-        let request = NetworkManager.shared.configureRequest(endpoint: MockAPIEndpoints.mockValidAPIEndpoint)
+        let request = NetHelper.configureRequest(endpoint: MockAPIEndpoints.mockValidAPIEndpoint)
         
       
         guard let url = request?.url,
@@ -80,13 +81,13 @@ final class SwiftDownloadKitTests: XCTestCase {
     
     
     func testMockByteRequest() throws{
-        let request = NetworkManager.shared.configureRequest(endpoint: MockAPIEndpoints.mockBytedownloader(500))
+        let request = NetHelper.configureRequest(endpoint: MockAPIEndpoints.mockBytedownloader(500))
         
         XCTAssertNotNil(request)
     }
     
     func testMockByteRequestMethod() throws{
-        let request = NetworkManager.shared.configureRequest(endpoint: MockAPIEndpoints.mockBytedownloader(500))
+        let request = NetHelper.configureRequest(endpoint: MockAPIEndpoints.mockBytedownloader(500))
         
         XCTAssertTrue(request?.httpMethod == "GET")
     }   
