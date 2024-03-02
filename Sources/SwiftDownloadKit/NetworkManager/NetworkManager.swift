@@ -23,31 +23,6 @@ public class NetworkManager{
         }
     }
     
-    public func configureRequest(endpoint:API)->URLRequest?{
-    
-        var urlComp = URLComponents()
-        urlComp.scheme = endpoint.httpScheme.rawValue
-        urlComp.host = endpoint.host
-        urlComp.path = endpoint.path
-        urlComp.port = endpoint.port
-        urlComp.queryItems = endpoint.queryParams
-        
-        guard let url = urlComp.url else {
-            return nil
-        }
-        
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = endpoint.httpMethod.rawValue
-        
-        if let params = endpoint.headerParam{
-            for (key, value) in params{
-                urlRequest.addValue(value, forHTTPHeaderField: key)
-            }
-        }
-        
-        return urlRequest
-    }
-    
     public func fetchRangeList(size:Int,downloaded:Int,chunkSize:Int)->[String]{
         
         guard downloaded < size else {return []}
